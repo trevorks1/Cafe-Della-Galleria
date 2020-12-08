@@ -5,6 +5,7 @@ const {
 const encryptLib = require('../modules/encryption');
 const pool = require('../modules/pool');
 const userStrategy = require('../strategies/user.strategy');
+const nodemailer = require('nodemailer');
 
 const router = express.Router();
 
@@ -36,7 +37,11 @@ router.post('/register', (req, res, next) => {
       req.body.postal_code,
       0,
     ])
-    .then(() => res.sendStatus(201))
+    .then((dbResp) => {
+      let transporter = nodemailer.createTransport();
+
+      res.sendStatus(201);
+    })
     .catch((err) => {
       console.log('User registration failed: ', err);
       res.sendStatus(500);
