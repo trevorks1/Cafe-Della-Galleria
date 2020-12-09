@@ -51,4 +51,25 @@ router.post('/portfolio', rejectUnauthenticated, (req, res) => {
     });
 });
 
+// GET
+router.get('/portfolio/details/:id', rejectUnauthenticated, (req, res) => {
+  // GET route code here
+  const queryText = `SELECT * FROM "portfolio"
+  WHERE "id" = $1 AND "user_id" = $2;`;
+  pool
+    .query(queryText, [req.params.id, req.user.id])
+    .then((dbResponse) => {
+      console.log(dbResponse);
+      res.send(dbResponse.rows[0]);
+    })
+    .catch((err) => {
+      console.log(err);
+      res.sendStatus(500);
+    });
+});
+
+// PUT
+
+//DELETE
+
 module.exports = router;
