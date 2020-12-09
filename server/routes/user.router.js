@@ -5,7 +5,6 @@ const {
 const encryptLib = require('../modules/encryption');
 const pool = require('../modules/pool');
 const userStrategy = require('../strategies/user.strategy');
-const nodemailer = require('nodemailer');
 
 const router = express.Router();
 
@@ -38,8 +37,6 @@ router.post('/register', (req, res, next) => {
       0,
     ])
     .then((dbResp) => {
-      let transporter = nodemailer.createTransport();
-
       res.sendStatus(201);
     })
     .catch((err) => {

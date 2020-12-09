@@ -1,17 +1,21 @@
 const express = require('express');
 const pool = require('../modules/pool');
 const router = express.Router();
+const {
+  rejectUnauthenticated,
+} = require('../modules/authentication-middleware');
 
 /**
  * GET route template
  */
-router.get('/portfolio', (req, res) => {
+router.get('/portfolio', rejectUnauthenticated, (req, res) => {
   // GET route code here
-  const queryText = 'SELECT * FROM "portfolio";';
+  const queryText = `SELECT * FROM "portfolio" 
+  WHERE "user_id" = $1;`;
 
   pool
-    .query(queryText)
-    .then((dpResponse) => {
+    .query(queryText, [req.user.id])
+    .then((dbResponse) => {
       console.log(dbResponse);
       res.send(dbResponse.rows);
     })
@@ -24,16 +28,17 @@ router.get('/portfolio', (req, res) => {
 /**
  * POST route template
  */
-router.post('/portfolio', (req, res) => {
+router.post('/portfolio', rejectUnauthenticated, (req, res) => {
   // POST route code here
   const portfolioData = req.body;
-  const queryText = `INSERT INTO "portfolio" ("title", "description", "forsale")
-  VALUES ($1, $2, $3);`;
+  const queryText = `INSERT INTO "portfolio" ("title", "description", "forsale", "user_id")
+  VALUES ($1, $2, $3, $4);`;
 
   const queryArray = [
     portfolioData.title,
     portfolioData.description,
     portfolioData.forsale,
+    req.user.id,
   ];
   pool
     .query(queryText, queryArray)
