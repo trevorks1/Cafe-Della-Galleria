@@ -68,7 +68,26 @@ router.get('/portfolio/details/:id', rejectUnauthenticated, (req, res) => {
     });
 });
 
-// PUT
+// PUT to update all information
+router.put('/update/:id', rejectUnauthenticated, (req, res) => {
+  const newPortfolio = req.body;
+  const queryText = `UPDATE "portfolio" SET title=$1, description=$2, forsale=$3 WHERE id=$4 ;`;
+
+  pool
+    .query(queryText, [
+      newPortfolio.title,
+      newPortfolio.description,
+      newPortfolio.forsale,
+      req.params.id,
+    ])
+    .then((dbResponse) => {
+      res.sendStatus(200);
+    })
+    .catch((err) => {
+      console.log(err);
+      res.sendStatus(500);
+    });
+});
 
 //DELETE
 
