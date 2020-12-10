@@ -90,5 +90,19 @@ router.put('/update/:id', rejectUnauthenticated, (req, res) => {
 });
 
 //DELETE
+router.delete('/delete/:id', rejectUnauthenticated, (req, res) => {
+  const queryText = `DELETE FROM "portfolio" WHERE "id"=$1; `;
+  const queryData = [req.params.id];
+
+  pool
+    .query(queryText, queryData)
+    .then((response) => {
+      res.sendStatus(200);
+    })
+    .catch((err) => {
+      console.log(err);
+      res.sendStatus(500);
+    });
+});
 
 module.exports = router;
