@@ -105,4 +105,38 @@ router.delete('/delete/:id', rejectUnauthenticated, (req, res) => {
     });
 });
 
+// POST for genre
+router.post('/genre', rejectUnauthenticated, (req, res) => {
+  const genreData = req.body;
+  const queryText = `INSERT INTO "genre" ("portfolio_id", "genre_name")
+  VALUES ($1, $2);`;
+
+  pool
+    .query(queryText, [genreData.portfolio_id, genreData.genre_name])
+    .then((dbResponse) => {
+      res.sendStatus(201);
+    })
+    .catch((err) => {
+      console.log(err);
+      res.sendStatus(500);
+    });
+});
+
+// POST for images
+router.post('/images', rejectUnauthenticated, (req, res) => {
+  const imagesData = req.body;
+  const queryText = `INSERT INTO "images" ("alt", "url", "portfolio_id")
+  VALUES ($1, $2, $3);`;
+
+  pool
+    .query(queryText, [imagesData.alt, imagesData.url, imagesData.portfolio_id])
+    .then((dbResponse) => {
+      res.sendStatus(201);
+    })
+    .catch((err) => {
+      console.log(err);
+      res.sendStatus(500);
+    });
+});
+
 module.exports = router;
