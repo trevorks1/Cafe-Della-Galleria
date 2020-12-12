@@ -32,7 +32,7 @@ router.post('/portfolio', rejectUnauthenticated, (req, res) => {
   // POST route code here
   const portfolioData = req.body;
   const queryText = `INSERT INTO "portfolio" ("title", "description", "forsale", "user_id")
-  VALUES ($1, $2, $3, $4);`;
+  VALUES ($1, $2, $3, $4) RETURNING id;`;
 
   const queryArray = [
     portfolioData.title,
@@ -43,7 +43,7 @@ router.post('/portfolio', rejectUnauthenticated, (req, res) => {
   pool
     .query(queryText, queryArray)
     .then((dbResponse) => {
-      res.sendStatus(201);
+      res.send(dbResponse.rows[0]);
     })
     .catch((err) => {
       console.log(err);
