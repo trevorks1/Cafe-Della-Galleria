@@ -16,9 +16,13 @@ import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 import AboutPage from '../AboutPage/AboutPage';
 import UserPage from '../UserPage/UserPage';
 import InfoPage from '../InfoPage/InfoPage';
-import LandingPage from '../LandingPage/LandingPage';
+import HomePage from '../HomePage/HomePage';
 import LoginPage from '../LoginPage/LoginPage';
 import RegisterPage from '../RegisterPage/RegisterPage';
+import PublicArtistGalleryPage from '../PublicArtistGalleryPage/PublicArtistGalleryPage';
+import PortfolioGalleryPage from '../PortfolioGalleryPage/PortfolioGalleryPage';
+import PortfolioDetailsPage from '../PortfolioDetailsPage/PortfolioDetailsPage';
+import AddNewPortfolioPage from '../AddNewPortfolioPage/AddNewPortfolioPage';
 
 import './App.css';
 
@@ -42,6 +46,31 @@ class App extends Component {
               exact
               path="/about"
               component={AboutPage}
+            />
+
+            <Route
+              exact
+              path="/artist/:artist_id"
+              component={PublicArtistGalleryPage}
+            />
+
+            <ProtectedRoute
+              exact
+              path="/edit"
+              component={AddNewPortfolioPage}
+            />
+
+            <ProtectedRoute
+              exact
+              path="/details"
+              component={PortfolioDetailsPage}
+            />
+
+            <ProtectedRoute
+              // logged in shows UserPage else shows LoginPage
+              exact
+              path="/portfolio"
+              component={PortfolioGalleryPage}
             />
 
             {/* For protected routes, the view could show one of several things on the same route.
@@ -89,7 +118,7 @@ class App extends Component {
               // - else shows LandingPage at "/home"
               exact
               path="/home"
-              component={LandingPage}
+              component={HomePage}
               authRedirect="/user"
             />
 
