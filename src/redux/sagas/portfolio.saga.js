@@ -24,8 +24,19 @@ function* savePortfolio(action) {
   }
 }
 
+// Get the portfolio with a saga
+function* getPortfolio(action) {
+  try {
+    const response = yield axios.get('/api/portfolios/portfolio');
+    yield put({ type: 'SET_PORTFOLIO', payload: response.data });
+  } catch (error) {
+    console.log('Request failed to retrieve Portfolio.', error);
+  }
+}
+
 function* portfolioSaga() {
   yield takeLatest('SAVE_ART_DETAILS', savePortfolio);
+  yield takeLatest('GET_PORTFOLIO', getPortfolio);
 }
 
 export default portfolioSaga;

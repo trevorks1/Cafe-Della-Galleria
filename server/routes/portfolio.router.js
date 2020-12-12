@@ -11,6 +11,7 @@ const {
 router.get('/portfolio', rejectUnauthenticated, (req, res) => {
   // GET route code here
   const queryText = `SELECT * FROM "portfolio" 
+  LEFT JOIN "images" ON "portfolio".id = "images".portfolio_id
   WHERE "user_id" = $1;`;
 
   pool

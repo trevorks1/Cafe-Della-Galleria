@@ -9,6 +9,7 @@ import {
   FormControl,
   FormLabel,
   Button,
+  Grid,
 } from '@material-ui/core';
 
 // Basic class component structure for React with default state
@@ -17,7 +18,7 @@ import {
 // component.
 class AddNewPortfolioPage extends Component {
   state = {
-    heading: 'Portfolio Editing',
+    heading: 'Adding a new Item',
     form: {
       title: '',
       description: '',
@@ -48,48 +49,81 @@ class AddNewPortfolioPage extends Component {
 
   render() {
     return (
-      <div>
-        <h2>{this.state.heading}</h2>
-        <TextField
-          label="Title"
-          onChange={(event) => this.handleChangeFields(event, 'title')}
-          required={true}
-        ></TextField>
-        <TextField
-          label="Description"
-          onChange={(event) => this.handleChangeFields(event, 'description')}
-          required={true}
-        ></TextField>
-        <FormControl component="fieldset">
-          <FormLabel component="legend">Is This For Sale</FormLabel>
-          <RadioGroup
-            aria-label="forsale"
-            name="forsale"
-            value={this.state.form.forsale}
-            onChange={(event) => this.handleChangeFields(event, 'forsale')}
-          >
-            <FormControlLabel value="true" control={<Radio />} label="Yes" />
-            <FormControlLabel value="false" control={<Radio />} label="No" />
-          </RadioGroup>
-        </FormControl>
-        <TextField
-          label="genre"
-          onChange={(event) => this.handleChangeFields(event, 'genre')}
-          required={true}
-        ></TextField>
-        <TextField
-          label="image url"
-          onChange={(event) => this.handleChangeFields(event, 'images')}
-          required={true}
-        ></TextField>
-        <TextField
-          label="image description"
-          onChange={(event) => this.handleChangeFields(event, 'alt')}
-          require={true}
-        ></TextField>
-        <Button onClick={this.handleSave} variant="contained" color="primary">
-          Submit
-        </Button>
+      <div className="container">
+        <Grid container spacing={4}>
+          <Grid item xs={12}>
+            <h2>{this.state.heading}</h2>
+          </Grid>
+          <Grid item xs={6}>
+            <TextField
+              fullWidth
+              label="Title"
+              onChange={(event) => this.handleChangeFields(event, 'title')}
+              required={true}
+            ></TextField>
+          </Grid>
+          <Grid item xs={6}>
+            <TextField
+              label="Description"
+              onChange={(event) =>
+                this.handleChangeFields(event, 'description')
+              }
+              required={true}
+            ></TextField>
+          </Grid>
+          <Grid item xs={6}>
+            <FormControl component="fieldset">
+              <FormLabel component="legend">Is This For Sale</FormLabel>
+              <RadioGroup
+                aria-label="forsale"
+                name="forsale"
+                value={this.state.form.forsale}
+                onChange={(event) => this.handleChangeFields(event, 'forsale')}
+              >
+                <FormControlLabel
+                  value="true"
+                  control={<Radio />}
+                  label="Yes"
+                />
+                <FormControlLabel
+                  value="false"
+                  control={<Radio />}
+                  label="No"
+                />
+              </RadioGroup>
+            </FormControl>
+          </Grid>
+          <Grid item xs={6}>
+            <TextField
+              label="genre"
+              onChange={(event) => this.handleChangeFields(event, 'genre')}
+              required={true}
+            ></TextField>
+          </Grid>
+          <Grid item xs={6}>
+            <TextField
+              label="image url"
+              onChange={(event) => this.handleChangeFields(event, 'images')}
+              required={true}
+            ></TextField>
+          </Grid>
+          <Grid item xs={6}>
+            <TextField
+              label="image description"
+              onChange={(event) => this.handleChangeFields(event, 'alt')}
+              require={true}
+            ></TextField>
+          </Grid>
+          <Grid item xs={12}>
+            <Button
+              onClick={this.handleSave}
+              variant="contained"
+              color="primary"
+            >
+              Submit
+            </Button>
+          </Grid>
+        </Grid>
       </div>
     );
   }
