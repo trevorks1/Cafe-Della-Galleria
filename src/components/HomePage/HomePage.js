@@ -4,8 +4,6 @@ import mapStoreToProps from '../../redux/mapStoreToProps';
 
 import './LandingPage.css';
 
-// CUSTOM COMPONENTS
-
 class LandingPage extends Component {
   state = {
     heading: 'Class Component',
