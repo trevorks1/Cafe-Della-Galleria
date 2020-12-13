@@ -22,6 +22,7 @@ import PublicArtistGalleryPage from '../PublicArtistGalleryPage/PublicArtistGall
 import PortfolioGalleryPage from '../PortfolioGalleryPage/PortfolioGalleryPage';
 import PortfolioDetailsPage from '../PortfolioDetailsPage/PortfolioDetailsPage';
 import AddNewPortfolioPage from '../AddNewPortfolioPage/AddNewPortfolioPage';
+import PublicDetailsPage from '../PublicDetailsPage/PublicDetailsPage';
 
 import './App.css';
 
@@ -41,9 +42,11 @@ class App extends Component {
 
             <Route
               exact
-              path="/artist/:artist_id"
-              component={PublicArtistGalleryPage}
+              path="/artist/details/:portfolio_id"
+              component={PublicDetailsPage}
             />
+
+            <Route exact path="/artist" component={PublicArtistGalleryPage} />
 
             <ProtectedRoute
               exact

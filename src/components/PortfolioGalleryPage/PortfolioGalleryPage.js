@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import mapStoreToProps from '../../redux/mapStoreToProps';
-import {} from '@material-ui/core';
+import { Grid, Typography } from '@material-ui/core';
 import PortfolioList from '../PortfolioList/PortfolioList';
 
 // Basic class component structure for React with default state
@@ -10,7 +10,7 @@ import PortfolioList from '../PortfolioList/PortfolioList';
 // component.
 class PortfolioGallery extends Component {
   state = {
-    heading: 'Gallery Images',
+    heading: 'Gallery',
   };
 
   componentDidMount() {
@@ -21,9 +21,18 @@ class PortfolioGallery extends Component {
 
   render() {
     return (
-      <div>
-        <h2>{this.state.heading}</h2>
-        <PortfolioList></PortfolioList>
+      <div className="container">
+        <Grid container spacing={3}>
+          <Grid item xs={9}>
+            <h2>{this.state.heading}</h2>
+            <PortfolioList></PortfolioList>
+          </Grid>
+          <Grid item xs={3}>
+            <Typography variant="h4" component="h3">
+              {this.props.store.user.username}
+            </Typography>
+          </Grid>
+        </Grid>
       </div>
     );
   }

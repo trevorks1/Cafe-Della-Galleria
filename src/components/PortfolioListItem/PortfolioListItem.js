@@ -26,14 +26,18 @@ const muiStyles = (theme) =>
 
 class PortfolioListItem extends Component {
   handleGoToDetails = (event) => {
-    this.props.history.push(`/details/${this.props.portfolio.id}`);
+    let pagePath = `/details/${this.props.portfolio.id}`;
+    if (this.props.store.user.id == null) {
+      pagePath = `/artist/details/${this.props.portfolio.id}`;
+    }
+    this.props.history.push(pagePath);
   };
   render() {
     const { classes } = this.props;
     return (
       <div>
         <Card className={classes.root}>
-          <CardActionArea>
+          <CardActionArea onClick={this.handleGoToDetails}>
             {this.props.portfolio.url === '' ||
             this.props.portfolio.url == null ? (
               <CardMedia
@@ -53,7 +57,7 @@ class PortfolioListItem extends Component {
                 {this.props.portfolio.title}
               </Typography>
               <Typography variant="body2" color="textSecondary" component="p">
-                {this.props.portfolio.forsale === true ? 'Yes' : 'No'}
+                For Sale: {this.props.portfolio.forsale === true ? 'Yes' : 'No'}
               </Typography>
             </CardContent>
           </CardActionArea>

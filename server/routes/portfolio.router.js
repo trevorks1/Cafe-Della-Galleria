@@ -10,7 +10,7 @@ const {
  */
 router.get('/portfolio', rejectUnauthenticated, (req, res) => {
   // GET route code here
-  const queryText = `SELECT * FROM "portfolio" 
+  const queryText = `SELECT *, "portfolio".id FROM "portfolio" 
   LEFT JOIN "images" ON "portfolio".id = "images".portfolio_id
   WHERE "user_id" = $1;`;
 
@@ -56,7 +56,8 @@ router.post('/portfolio', rejectUnauthenticated, (req, res) => {
 router.get('/portfolio/details/:id', rejectUnauthenticated, (req, res) => {
   // GET route code here
   const queryText = `SELECT * FROM "portfolio"
-  WHERE "id" = $1 AND "user_id" = $2;`;
+  LEFT JOIN "images" ON "portfolio".id = "images".portfolio_id
+  WHERE "portfolio".id = $1 AND "user_id" = $2;`;
   pool
     .query(queryText, [req.params.id, req.user.id])
     .then((dbResponse) => {
@@ -92,16 +93,27 @@ router.put('/update/:id', rejectUnauthenticated, (req, res) => {
 
 //DELETE
 router.delete('/delete/:id', rejectUnauthenticated, (req, res) => {
+  const queryImage = `DELETE FROM "images" WHERE "portfolio_id"=$1`;
+  const queryGenre = `DELETE FROM "genre" WHERE "portfolio_id"=$1`;
+  const queryRating = `DELETE FROM "rating" WHERE "portfolio_id"=$1`;
   const queryText = `DELETE FROM "portfolio" WHERE "id"=$1; `;
   const queryData = [req.params.id];
-
-  pool
-    .query(queryText, queryData)
+  const promiseImages = pool.query(queryImage, queryData);
+  const promiseGenre = pool.query(queryGenre, queryData);
+  const promiseRating = pool.query(queryRating, queryData);
+  Promise.all([promiseImages, promiseGenre, promiseRating])
     .then((response) => {
-      res.sendStatus(200);
+      pool
+        .query(queryText, queryData)
+        .then((response) => {
+          res.sendStatus(200);
+        })
+        .catch((err) => {
+          console.log(err);
+          res.sendStatus(500);
+        });
     })
     .catch((err) => {
-      console.log(err);
       res.sendStatus(500);
     });
 });
