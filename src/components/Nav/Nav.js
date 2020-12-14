@@ -29,10 +29,16 @@ const Nav = (props) => {
           {loginLinkData.text}
         </Link>
         {/* Show the link to the info page and the logout button if the user is logged in */}
+        <Link to="/artist" className="nav-link">
+          Artist Gallery
+        </Link>
+        <Link to="/artist/details/:portfolio_id" className="nav-link">
+          Artist Portfolio
+        </Link>
         {props.store.user.id && (
           <>
-            <Link className="nav-link" to="/info">
-              Info Page
+            <Link className="nav-link" to="/edit">
+              Add Artwork
             </Link>
             <LogOutButton className="nav-link" />
           </>

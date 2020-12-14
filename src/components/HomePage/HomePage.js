@@ -16,7 +16,7 @@ class LandingPage extends Component {
   render() {
     return (
       <div className="container">
-        <h2>Gallery</h2>
+        <h2>Home Page</h2>
       </div>
     );
   }
