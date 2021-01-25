@@ -38,7 +38,7 @@ import './App.css';
 const customTheme = createMuiTheme({
   // theme settings
   palette: {
-    // type: 'dark',
+    type: 'light',
     primary: amber,
     secondary: lightGreen,
     error: deepOrange,

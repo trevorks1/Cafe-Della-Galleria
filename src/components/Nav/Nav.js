@@ -32,11 +32,11 @@ const Nav = (props) => {
         <Link to="/artist" className="nav-link">
           Artist Gallery
         </Link>
-        <Link to="/artist/details/:portfolio_id" className="nav-link">
-          Artist Portfolio
-        </Link>
         {props.store.user.id && (
           <>
+            <Link to={`/portfolio`} className="nav-link">
+              Artist Portfolio
+            </Link>
             <Link className="nav-link" to="/edit">
               Add Artwork
             </Link>

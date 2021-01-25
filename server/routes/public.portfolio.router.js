@@ -27,7 +27,8 @@ router.get('/portfolio/gallery', (req, res) => {
 router.get('/portfolio/details/:id', (req, res) => {
   // GET route code here
   const queryText = `SELECT * FROM "portfolio"
-  WHERE "id" = $1;`;
+  LEFT JOIN "images" ON "portfolio".id = "images".portfolio_id
+  WHERE "portfolio".id = $1;`;
   pool
     .query(queryText, [req.params.id])
     .then((dbResponse) => {

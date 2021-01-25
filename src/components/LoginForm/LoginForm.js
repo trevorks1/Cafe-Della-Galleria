@@ -64,7 +64,13 @@ class LoginForm extends Component {
           </label>
         </div>
         <div>
-          <input className="btn" type="submit" name="submit" value="Log In" />
+          <input
+            color="primary"
+            className="btn"
+            type="submit"
+            name="submit"
+            value="Log In"
+          />
         </div>
       </form>
     );
