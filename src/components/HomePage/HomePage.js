@@ -39,16 +39,14 @@ class LandingPage extends Component {
   render() {
     return (
       <div className="container">
-        <h1 className="heading-lp">This is Cafe Della Galleria, Welcome!</h1>
+        <h1 className="heading-lp">My Portfolio</h1>
         <Box mt={4}>
           <Grid container spacing={3} justify="center">
-            <Grid item xs={5}>
+            <Grid item xs={12}>
               <Card>
                 <CardContent>
                   <p>
-                    This is a site for artists to come and share their work with
-                    others! Hope you enjoy the easy concept of making a profile
-                    and then storing work within you portfolios.
+                    About
                   </p>
                 </CardContent>
               </Card>

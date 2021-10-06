@@ -19,7 +19,7 @@ const Nav = (props) => {
   return (
     <div className="nav">
       <Link to="/home">
-        <h2 className="nav-title">Cafe Della Galleria</h2>
+        <h2 className="nav-title">Trevor Sansalone's Portfolio Website, Welcome!</h2>
       </Link>
       <div className="nav-right">
         <Link className="nav-link" to={loginLinkData.path}>
@@ -30,7 +30,7 @@ const Nav = (props) => {
         </Link>
         {/* Show the link to the info page and the logout button if the user is logged in */}
         <Link to="/artist" className="nav-link">
-          Artist Gallery
+         Work
         </Link>
         {props.store.user.id && (
           <>
